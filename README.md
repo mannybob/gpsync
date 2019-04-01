@@ -1,12 +1,14 @@
 # gpsync
 
-Gpsync is a python utility to download your google photos.   Despite it's name this is a one-way sync only from google-photos to the local machine.
+Gpsync is a python utility to download and update google photos on the local machine.   Despite it's name this is a one-way sync only.
 
 Also, I hope it serves as an example to use the google photos API in python, as the official documentation is suboptimal, and google has not provided an official python sample.
 
 Before running for the first time, follow the guide https://developers.google.com/photos/library/guides/get-started to create a client token and authorize it to access google photos.  Google ask for a project name, and an application name.  Choose any name you like.  The name needn't be unique or even meaningful.
 
-Once you have credentials, download the credentials file and save it as *.google_client_id* in your token directory. (Default is $HOME in Linux, %HOMEPATH% in windows).
+You will also need to install the google API client library for python.  Installation instruction are here: https://developers.google.com/api-client-library/python/start/installation
+
+Once you have credentials, download the credentials file and save it as *.google_client_id* in your token directory. (Default is $HOME in Linux, %HOMEPATH% in windows, override with *-t*).
 
 The first time you run the app, google will open a browser window to ask for permission to access your photos.   After that, the app will use the stored access token in *.gp_token* in your token directory.
 
@@ -42,5 +44,7 @@ The first time you run the app, google will open a browser window to ask for per
 ### Quirks features and issues:
 * When syncing by albums (or shared albums) gpsync creates a directory for each album.
 * The resize option (-z) is ignored for videos. (The API does support resize, but it generates a thumbnail image only).
-* Googles idea of your shared albums, photos, may not match your expectations.  Try gpsync.py -0.
+* Googles idea of your shared albums, photos, may not match your expectations.  Try python gpsync.py -0.
 * Google photo does not support modification time (as of API v1), so gpsync downloads item updates based on file create date.
+* Unnamed albums are saved as *Untitled <#>* where #=1,2,etc.
+
